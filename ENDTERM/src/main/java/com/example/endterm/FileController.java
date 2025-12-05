@@ -24,7 +24,7 @@ public class FileController {
 
     private void uploadToMinio(MultipartFile file, String expectedType) throws Exception {
         if (!file.getContentType().equals(expectedType)) {
-            throw new IllegalArgumentException("文件类型错误！要求类型: " + expectedType);
+            throw new IllegalArgumentException("Incorrect file type! Required type: " + expectedType);
         }
 
         minioClient.putObject(
@@ -41,7 +41,7 @@ public class FileController {
     public ResponseEntity<String> uploadTxt(@RequestParam("file") MultipartFile file) {
         try {
             uploadToMinio(file, "text/plain");
-            return ResponseEntity.ok("TXT 文件上传成功: " + file.getOriginalFilename());
+            return ResponseEntity.ok("TXT file uploaded successfully: " + file.getOriginalFilename());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -51,7 +51,7 @@ public class FileController {
     public ResponseEntity<String> uploadJson(@RequestParam("file") MultipartFile file) {
         try {
             uploadToMinio(file, "application/json");
-            return ResponseEntity.ok("JSON 文件上传成功: " + file.getOriginalFilename());
+            return ResponseEntity.ok("JSON file uploaded successfully: " + file.getOriginalFilename());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -61,7 +61,7 @@ public class FileController {
     public ResponseEntity<String> uploadPng(@RequestParam("file") MultipartFile file) {
         try {
             uploadToMinio(file, "image/png");
-            return ResponseEntity.ok("PNG 文件上传成功: " + file.getOriginalFilename());
+            return ResponseEntity.ok("PNG file uploaded successfully: " + file.getOriginalFilename());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
